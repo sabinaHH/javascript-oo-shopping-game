@@ -33,8 +33,8 @@ const dateDiff = (date1, date2) => {
   return Math.floor((utcDate2 - utcDate1) / _MS_PER_DAY);
 };
 
-Object.defineProperties(Product, "daysToExpire ", {
-  get() {
+Object.defineProperties(Product.prototype, "daysToExpire ", {
+  get: function () {
     return dateDiff(this.expiryDate, new Date());
   },
 });
