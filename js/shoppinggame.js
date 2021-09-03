@@ -27,9 +27,9 @@ function Product(id, name, price, expiryDate) {
 }
 
 const dateDiff = (date1, date2) => {
-  var date1 = Math.abs(startDate.getTime());
-  var date2 = Math.abs(endDate.getTime());
-  var numberOfDays = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+  var startDate = Math.abs(date1.getTime());
+  var endDate = Math.abs(date2.getTime());
+  var numberOfDays = Math.ceil((startDate - endDate) / (1000 * 60 * 60 * 24));
   return numberOfDays;
 };
 
