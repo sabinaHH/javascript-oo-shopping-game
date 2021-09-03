@@ -3,12 +3,11 @@ let gameComplete = false;
 const name = "unknown";
 const score = 0;
 const items = 0;
-const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
 const player = {
-  name: name,
-  score: score,
-  items: items,
+  name,
+  score,
+  items,
   getCurrentScore() {
     return this.score;
   },
@@ -27,20 +26,21 @@ function Product(id, name, price, expiryDate) {
   this.expiryDate = expiryDate;
 }
 
-const dateDiff = (date1, date2) => {
-  const utcDate1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
-  const utcDate2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
-  return Math.floor((utcDate2 - utcDate1) / _MS_PER_DAY);
-};
+function dateDiff(startDate, endDate) {
+  var date1 = Math.abs(startDate.getTime());
+  var date2 = Math.abs(endDate.getTime());
+  var numberOfDays = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+  return numberOfDays;
+}
 
-Object.defineProperty(Product.prototype, "daysToExpire ", {
+Object.defineProperty(Product.prototype, "daysToExpire", {
   get: function () {
     return dateDiff(this.expiryDate, new Date());
   },
 });
 
 Product.prototype.getDetails = function () {
-  return `Product Name: $(this.name), Product Price: $(this.price)`;
+  return `Product Name: ${this.name}, Product Price: ${this.price}`;
 };
 
 function MagicProduct(id, name, price, expiryDate, points, isBonus) {
@@ -55,8 +55,8 @@ class Rating {
   constructor(rate) {
     this.rate = "";
   }
-  set rating(rate) {
-    if (value < 1 && value <= 4) {
+  set rating(value) {
+    if (value > 1 && value <= 4) {
       this.rate = "OK";
     } else if (value >= 5 && value <= 7) {
       this.rate = "GOOD";
